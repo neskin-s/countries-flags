@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Search } from './Search';
 import { CustomSelect } from './CustomSelect';
-import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRegion } from '../store/controls/controls-selectors';
 import { setRegion } from '../store/controls/controls-actions';
@@ -29,9 +28,11 @@ const Wrapper = styled.div`
 	}
 `;
 
-export const Controls = memo(() => {
+export const Controls = () => {
 	const dispatch = useDispatch();
 	const region = useSelector(selectRegion);
+
+	const getCurrentCountry = optionsMap.find((info) => info.value === region);
 
 	const handleSetRegion = (region: any) =>
 		dispatch(setRegion(region?.value || ''));
@@ -44,9 +45,9 @@ export const Controls = memo(() => {
 				placeholder="Filter by Region"
 				isClearable
 				isSearchable={false}
-				value={region && optionsMap[region]}
+				value={getCurrentCountry}
 				onChange={handleSetRegion}
 			/>
 		</Wrapper>
 	);
-});
+};

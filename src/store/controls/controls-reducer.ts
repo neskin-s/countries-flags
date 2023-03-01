@@ -23,6 +23,11 @@ export const searchReducer = (
 				...state,
 				region: payload,
 			};
+		case CONTORLS_ACTIONS.CLEAR_CONTROLS:
+			return {
+				search: '',
+				region: '',
+			};
 		default:
 			return state;
 	}

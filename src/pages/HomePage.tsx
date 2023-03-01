@@ -16,7 +16,7 @@ import {
 } from '../store/controls/controls-selectors';
 import { RootState } from '../store/root-reducer';
 
-export const HomePage = memo(() => {
+export const HomePage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -72,4 +72,4 @@ export const HomePage = memo(() => {
 			)}
 		</>
 	);
-});
+};
