@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Select from 'react-select';
 
-export const CustomSelect = styled(Select).attrs({
+export const CustomSelect: any = styled(Select).attrs({
 	styles: {
 		control: (provided: any) => ({
 			...provided,

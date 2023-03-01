@@ -6,7 +6,7 @@ import { themeReducer } from './theme/theme-reducer';
 export const rootReducer = combineReducers({
 	theme: themeReducer,
 	countries: countriesReducer,
-	contols: searchReducer,
+	controls: searchReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

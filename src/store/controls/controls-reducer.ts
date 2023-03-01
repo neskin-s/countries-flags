@@ -2,7 +2,7 @@ import { CONTORLS_ACTIONS, ActionControls } from './controls-actions';
 
 interface initialState {
 	search: string;
-	region: string;
+	region: any;
 }
 
 export const searchReducer = (
@@ -17,6 +17,11 @@ export const searchReducer = (
 			return {
 				...state,
 				search: payload,
+			};
+		case CONTORLS_ACTIONS.SET_REGION:
+			return {
+				...state,
+				region: payload,
 			};
 		default:
 			return state;

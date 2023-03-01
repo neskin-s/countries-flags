@@ -10,16 +10,19 @@ import {
 } from '../store/countries/countries-selectors';
 import { loadCountries } from '../store/countries/countries-actions';
 import { memo, useEffect } from 'react';
-import { selectSearch } from '../store/controls/controls-selectors';
+import {
+	selectControls,
+	selectSearch,
+} from '../store/controls/controls-selectors';
 import { RootState } from '../store/root-reducer';
 
 export const HomePage = memo(() => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const search = useSelector(selectSearch);
+	const { search, region } = useSelector(selectControls);
 	const countries = useSelector((state: RootState) =>
-		selectVisibleCountries(state, { search })
+		selectVisibleCountries(state, { search, region })
 	);
 	const { status, error, qty } = useSelector(selectCountriesInfo);
 
