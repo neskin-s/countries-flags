@@ -7,3 +7,8 @@ export const selectCountriesInfo = (state: RootState) => ({
 });
 
 export const selectAllCountries = (state: RootState) => state.countries.list;
+export const selectVisibleCountries = (state: RootState, { search = '' }) => {
+	return state.countries.list.filter((country) =>
+		country.name.toLowerCase().includes(search.toLowerCase())
+	);
+};

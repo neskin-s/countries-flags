@@ -3,7 +3,7 @@ import { SetCountries, COUNTRIES_ACTIONS } from './countries-actions';
 interface initialState {
 	status: 'idle' | 'loading' | 'received' | 'rejected';
 	error: any;
-	list: [];
+	list: any[];
 }
 
 export const countriesReducer = (

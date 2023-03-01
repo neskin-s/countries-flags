@@ -5,17 +5,22 @@ import { Card } from '../components/Card';
 import { Controls } from '../components/Controls';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	selectAllCountries,
 	selectCountriesInfo,
+	selectVisibleCountries,
 } from '../store/countries/countries-selectors';
 import { loadCountries } from '../store/countries/countries-actions';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
+import { selectSearch } from '../store/controls/controls-selectors';
+import { RootState } from '../store/root-reducer';
 
-export const HomePage = () => {
+export const HomePage = memo(() => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const countries: any[] = useSelector(selectAllCountries);
+	const search = useSelector(selectSearch);
+	const countries = useSelector((state: RootState) =>
+		selectVisibleCountries(state, { search })
+	);
 	const { status, error, qty } = useSelector(selectCountriesInfo);
 
 	useEffect(() => {
@@ -64,4 +69,4 @@ export const HomePage = () => {
 			)}
 		</>
 	);
-};
+});
