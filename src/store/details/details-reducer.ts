@@ -4,6 +4,7 @@ interface initialState {
 	status: 'idle' | 'loading' | 'received' | 'rejected';
 	error: any;
 	currentCountry: any;
+	neighbors: any;
 }
 
 export const detailsReducer = (
@@ -11,6 +12,7 @@ export const detailsReducer = (
 		status: 'idle',
 		error: null,
 		currentCountry: null,
+		neighbors: [],
 	},
 	{ type, payload }: ActionDetails
 ): initialState => {
@@ -35,9 +37,16 @@ export const detailsReducer = (
 			};
 		case DETAILS_ACTIONS.CLEAR_DETAILS:
 			return {
+				...state,
 				status: 'idle',
 				error: null,
 				currentCountry: null,
+			};
+		case DETAILS_ACTIONS.SET_NEIGHBORS:
+			return {
+				...state,
+				status: 'received',
+				neighbors: payload,
 			};
 		default:
 			return state;

@@ -9,11 +9,8 @@ import {
 	selectVisibleCountries,
 } from '../store/countries/countries-selectors';
 import { loadCountries } from '../store/countries/countries-actions';
-import { memo, useEffect } from 'react';
-import {
-	selectControls,
-	selectSearch,
-} from '../store/controls/controls-selectors';
+import { useEffect } from 'react';
+import { selectControls } from '../store/controls/controls-selectors';
 import { RootState } from '../store/root-reducer';
 
 export const HomePage = () => {
@@ -24,7 +21,7 @@ export const HomePage = () => {
 	const countries = useSelector((state: RootState) =>
 		selectVisibleCountries(state, { search, region })
 	);
-	const { status, error, qty } = useSelector(selectCountriesInfo);
+	const { status, error } = useSelector(selectCountriesInfo);
 
 	useEffect(() => {
 		dispatch(loadCountries());

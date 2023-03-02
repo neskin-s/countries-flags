@@ -3,6 +3,7 @@ export enum DETAILS_ACTIONS {
 	SET_LOADING = '@@/controls/SET_LOADING',
 	SET_ERROR = '@@/controls/SET_ERROR',
 	CLEAR_DETAILS = '@@/controls/CLEAR_DETAILS',
+	SET_NEIGHBORS = '@@/controls/SET_NEIGHBORS',
 }
 
 export type ActionDetails = {
@@ -28,6 +29,11 @@ export const setError = (error: any): ActionDetails => ({
 	payload: error,
 });
 
+const setNeighbors = (countries: any): ActionDetails => ({
+	type: DETAILS_ACTIONS.SET_NEIGHBORS,
+	payload: countries,
+});
+
 export const loadCountryByName =
 	(name: string) =>
 	(dispatch: any, getState: any, { client, api }: any) => {
@@ -36,4 +42,16 @@ export const loadCountryByName =
 			.get(api.searchByCountry(name))
 			.then(({ data }: any) => dispatch(setCountry(data[0])))
 			.catch((err: any) => dispatch(setError(err.message)));
+	};
+
+export const loadNeighborsByBorder =
+	(borders: any[]) =>
+	(dispatch: any, getState: any, { client, api }: any) => {
+		dispatch(setLoading());
+		client
+			.get(api.filterByCode(borders))
+			.then(({ data }: any) =>
+				dispatch(setNeighbors(data.map((c: any) => c.name)))
+			)
+			.catch((err: any) => console.error(err));
 	};
