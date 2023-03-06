@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.article`
@@ -43,7 +44,7 @@ const CardListItem = styled.li`
 	}
 `;
 
-export const Card = ({ img, name, info = [], onClick }: any) => {
+export const Card = memo(({ img, name, info = [], onClick }: any) => {
 	return (
 		<Wrapper onClick={onClick}>
 			<CardImage src={img} alt={name} />
@@ -59,4 +60,4 @@ export const Card = ({ img, name, info = [], onClick }: any) => {
 			</CardBody>
 		</Wrapper>
 	);
-};
+});

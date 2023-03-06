@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { Card } from '../../components/Card';
 import { List } from '../../components/List';
-import { RootState } from '../../store';
-import { selectControls } from '../controls/controls-slice';
 import {
 	loadCountries,
 	selectCountriesInfo,
@@ -16,10 +14,7 @@ const CountryList = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const controls = useSelector(selectControls);
-	const countries = useSelector((state: RootState) =>
-		selectVisibleCountries(state, controls)
-	);
+	const countries = useSelector(selectVisibleCountries);
 	const { status, error } = useSelector(selectCountriesInfo);
 
 	useEffect(() => {

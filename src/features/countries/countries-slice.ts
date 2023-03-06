@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit/';
+import {
+	createAsyncThunk,
+	createSelector,
+	createSlice,
+} from '@reduxjs/toolkit/';
 import { Axios } from 'axios';
 import { ApiType, AppDispatch, RootState } from '../../store';
 
@@ -57,20 +61,30 @@ const countriesSlice = createSlice({
 // export const {} = countriesSlice.actions;
 export const countriesReducer = countriesSlice.reducer;
 
-export const selectCountriesInfo = (state: RootState) => ({
-	status: state.countries.status,
-	error: state.countries.error,
-	qty: state.countries.list.length,
-});
+const selectCountries = (state: RootState) => state.countries;
+const selectControls = (state: RootState) => state.controls;
 
-export const selectAllCountries = (state: RootState) => state.countries.list;
-export const selectVisibleCountries = (
-	state: RootState,
-	{ search = '', region = '' }
-) => {
-	return state.countries.list.filter(
-		(country) =>
-			country.name.toLowerCase().includes(search.toLowerCase()) &&
-			country.region.toLowerCase().includes(region.toLowerCase())
-	);
-};
+export const selectAllCountries = createSelector(
+	[selectCountries],
+	(countries) => countries.list
+);
+
+export const selectCountriesInfo = createSelector(
+	[selectCountries],
+	(countries) => ({
+		status: countries.status,
+		error: countries.error,
+		qty: countries.list.length,
+	})
+);
+
+export const selectVisibleCountries = createSelector(
+	[selectAllCountries, selectControls],
+	(list, { search = '', region = '' }) => {
+		return list.filter(
+			(country) =>
+				country.name.toLowerCase().includes(search.toLowerCase()) &&
+				country.region.toLowerCase().includes(region.toLowerCase())
+		);
+	}
+);

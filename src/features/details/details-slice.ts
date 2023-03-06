@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit/';
+import { createSelector, createSlice } from '@reduxjs/toolkit/';
 import { RootState } from '../../store';
 import { createAppAsyncThunk } from '../countries/countries-slice';
 
@@ -71,7 +71,13 @@ const detailsSlice = createSlice({
 export const { clearDetails } = detailsSlice.actions;
 export const detailsReducer = detailsSlice.reducer;
 
-export const selectCurrentCountry = (state: RootState) =>
-	state.details.currentCountry;
 export const selectDetails = (state: RootState) => state.details;
-export const selectNeighbors = (state: RootState) => state.details.neighbors;
+
+export const selectCurrentCountry = createSelector(
+	[selectDetails],
+	(details) => details.currentCountry
+);
+export const selectNeighbors = createSelector(
+	[selectDetails],
+	(details) => details.neighbors
+);

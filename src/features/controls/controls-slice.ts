@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit/';
+import { createSelector, createSlice } from '@reduxjs/toolkit/';
 import { RootState } from '../../store';
 
 interface ControlsinitialStateProps {
@@ -28,6 +28,13 @@ const controlsSlice = createSlice({
 export const { setSearch, setRegion, clearControls } = controlsSlice.actions;
 export const controlsReducer = controlsSlice.reducer;
 
-export const selectSearch = (state: RootState) => state.controls.search;
-export const selectRegion = (state: RootState) => state.controls.region;
 export const selectControls = (state: RootState) => state.controls;
+
+export const selectSearch = createSelector(
+	[selectControls],
+	(controls) => controls.search
+);
+export const selectRegion = createSelector(
+	[selectControls],
+	(controls) => controls.region
+);
